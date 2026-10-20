@@ -231,3 +231,18 @@ func (is *iterableStream[T]) Skip(n int) Stream[T] {
 		},
 	}
 }
+
+func GroupBy[IN, K comparable](input Stream[IN], fns func(value IN) K) map[K][]IN {
+	table := make(map[K][]IN)
+	next := input.iterator()
+
+	for num, ok := next(); ok; num, ok = next(){
+		value, hasKey := table[fns(num)]
+		if !hasKey{
+			table[fns(num)] = []IN{num}
+		} else {
+			table[fns(num)] = append(value, num)
+		}
+	}
+	return table
+}
