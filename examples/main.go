@@ -23,10 +23,6 @@ func main() {
 		}
 	}
 
-	rst := stream.GroupBy(nums, f1)
-// 	rst := stream.OfMap(stream.GroupBy(nums, f1)).Map(func(value item.Pair[string, []int]) item.Pair[string, []int] {
-// 		return
-// })
-
-	fmt.Println(rst)
+	table := stream.OfMap(stream.GroupBy(nums, f1)).Map(f2)
+	fmt.Println(table)
 }

@@ -232,17 +232,15 @@ func (is *iterableStream[T]) Skip(n int) Stream[T] {
 	}
 }
 
-func GroupBy[IN, K comparable](input Stream[IN], fns func(value IN) K) map[K][]IN {
+func GroupBy[IN, K comparable](input Stream[IN], fns func(IN) K) map[K][]IN {
 	table := make(map[K][]IN)
-	next := input.iterator()
 
-	for num, ok := next(); ok; num, ok = next(){
-		value, hasKey := table[fns(num)]
-		if !hasKey{
-			table[fns(num)] = []IN{num}
-		} else {
-			table[fns(num)] = append(value, num)
-		}
-	}
+	input.ForEach(func (inp IN) {
+		value, hasValue := table[fns(inp)]
+		if hasValue {
+			table[fns(inp)] = append(value, inp)
+		} else {table[fns(inp)] = []IN{inp}}
+	})
+
 	return table
 }
