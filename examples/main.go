@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"reflect"
 	"runtime"
+
+	"github.com/mariomac/gostream/stream"
 )
 
 func GetFunctionName(i interface{}) string {
@@ -11,22 +13,12 @@ func GetFunctionName(i interface{}) string {
 }
 
 func main() {
-	funcs := []func(){
-		main_basic,
-		main_basic_foreach,
-		main_comparable,
-		main_dice,
-		main_iterate,
-		main_reduce,
-		main_sort,
-		main_seq_api,
-		main_seq2_api,
+	nums := stream.Of(1,4,5,6,7,2, 1,3,8)
+	fmt.Println(nums.ToSlice())
+	lessThan5 := func(val int) bool{
+		return val < 5
 	}
+	t1 := nums.TakeWhile(lessThan5)
 
-	for _, f := range funcs {
-		name := GetFunctionName(f)
-		fmt.Printf("--- %s\n", name)
-		f()
-		fmt.Println()
-	}
+	fmt.Println(t1.ToSlice())
 }
