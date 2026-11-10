@@ -123,6 +123,8 @@ type Stream[T any] interface {
 	// Go's "for ... range" syntax: for item := range stream.Seq() { ... }
 	// as well as other functions using the standard Go iter.Seq type.
 	Seq() iter.Seq[T]
+
+	DropWhile(predicate func(T) bool) Stream[T]
 }
 
 // if there are more items to iterate, returns the next item and true.
