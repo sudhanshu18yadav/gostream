@@ -254,24 +254,3 @@ func (is *iterableStream[T]) TakeWhile(predicate func(T) bool) Stream[T] {
 		},
 	}
 }
-// for pusing
-func DropWhile[T any](input Stream[T], predicate func(T) bool) Stream[T]{
-	return input.TakeWhile(predicate)
-}
-
-func (is *iterableStream[T]) DropWhile(predicate func(T) bool) Stream[T] {
-	 	return &iterableStream[T]{
-		infinite: is.isInfinite(),
-		supply: func() iterator[T] {
-			next := is.iterator()
-			return func() (T, bool) {
-				val, _ := next()
-				var sudo T
-				if !predicate(val){
-					return sudo, false
-				}
-				return val, true
-			}
-		},
-	}
-}
