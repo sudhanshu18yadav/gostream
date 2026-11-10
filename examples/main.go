@@ -18,7 +18,8 @@ func main() {
 	lessThan5 := func(val int) bool{
 		return val < 5
 	}
-	t1 := nums.TakeWhile(lessThan5)
+	// t1 := nums.TakeWhile(lessThan5)
+	t1 := nums.Filter(lessThan5)
 
 	fmt.Println(t1.ToSlice())
 }

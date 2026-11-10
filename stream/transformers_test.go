@@ -129,3 +129,11 @@ func TestSkip(t *testing.T) {
 	assert.Empty(t, Of(1, 2, 3).Skip(3).ToSlice())
 	assert.Equal(t, []int{4, 5, 6}, Of(1, 2, 3, 4, 5, 6).Skip(3).ToSlice())
 }
+
+func TestTakeWhile(t *testing.T) {
+	in := Of[int](1, -2, -3, 4, 5, 6, 7, 8, 2, 3)
+	lessThan5 := in.TakeWhile(func(n int) bool {
+		return n <5
+	})
+	assert.Equal(t, []int{1, -2, -3, 4}, lessThan5.ToSlice())
+}
