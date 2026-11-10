@@ -251,7 +251,7 @@ func (is *iterableStream[T]) TakeWhile(predicate func(T) bool) Stream[T] {
 		},
 	}
 }
-
+// for pusing
 func DropWhile[T any](input Stream[T], predicate func(T) bool) Stream[T]{
 	return input.TakeWhile(predicate)
 }
