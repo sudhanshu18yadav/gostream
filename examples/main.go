@@ -16,7 +16,7 @@ func main() {
 	nums := stream.Of(1,4,5,6,7,2, 1,3,8)
 	fmt.Println(nums.ToSlice())
 	lessThan5 := func(val int) bool{
-		return val < 5
+		return val < 50
 	}
 	t1 := nums.DropWhile(lessThan5)
 

@@ -135,8 +135,13 @@ func TestDropWhile(t *testing.T){
 	lessThan5 := func(x int) bool{
 		return x < 5
 	}
-	assert.Equal(t, []int{5,6,7,8,1,2,3,4} ,nums.DropWhile(lessThan5))
+	assert.Equal(t, []int{5,6,7,8,1,2,3,4} ,nums.DropWhile(lessThan5).ToSlice())
 
 	emptyNums := Of[int]()
-	assert.Equal(t, []int{}, emptyNums.DropWhile(lessThan5))
+	assert.Equal(t, []int(nil), emptyNums.DropWhile(lessThan5).ToSlice())
+
+	lessThan50 := func(val int) bool{
+		return val < 50
+	}
+	assert.Equal(t, []int(nil), emptyNums.DropWhile(lessThan50).ToSlice())
 }
