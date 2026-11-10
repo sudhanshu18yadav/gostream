@@ -135,5 +135,11 @@ func TestTakeWhile(t *testing.T) {
 	lessThan5 := in.TakeWhile(func(n int) bool {
 		return n <5
 	})
+
 	assert.Equal(t, []int{1, -2, -3, 4}, lessThan5.ToSlice())
+	greaterThan50 := in.TakeWhile(func(n int) bool {
+		return n > 50
+	})
+
+	assert.Equal(t, []int(nil), greaterThan50.ToSlice())
 }

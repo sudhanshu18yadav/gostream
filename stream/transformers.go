@@ -1,7 +1,6 @@
 package stream
 
 import (
-	"fmt"
 	"slices"
 
 	"github.com/mariomac/gostream/order"
@@ -47,7 +46,6 @@ func (is *iterableStream[T]) Filter(predicate func(T) bool) Stream[T] {
 			return func() (T, bool) {
 				for {
 					n, ok := next()
-			fmt.Println(">> filter-ok", n, ok)
 					if !ok {
 						var zeroVal T
 						return zeroVal, false
@@ -244,7 +242,6 @@ func (is *iterableStream[T]) TakeWhile(predicate func(T) bool) Stream[T] {
 			next := is.iterator()
 			return func() (T, bool) {
 				val, _ := next()
-			fmt.Println(">> next", val)
 				var sudo T
 				if !predicate(val){
 					return sudo, false
