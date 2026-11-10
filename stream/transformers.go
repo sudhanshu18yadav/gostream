@@ -241,19 +241,21 @@ func (is *iterableStream[T]) DropWhile(predicate func(T) bool) Stream[T] {
 		infinite: is.isInfinite(),
 		supply: func() iterator[T] {
 			next := is.iterator()
-				var terminal = false
+				var dropping = true
 				return func() (T, bool) {
+					for {
 					val, ok := next()
 					var sudo T
-					if !ok{
+					if !ok {
 						return sudo, false
 					}
-					if terminal {
+					if (dropping && !predicate(val)){
+						dropping = false
+					}
+					if !dropping{
 						return val, true
 					}
-					if(!predicate(val)) {
-						terminal =true
-					}
+				}
 			}
 		},
 	}
