@@ -125,7 +125,6 @@ type Stream[T any] interface {
 	Seq() iter.Seq[T]
 
 	TakeWhile(predicate func(T) bool) Stream[T]
-	DropWhile(predicate func(T) bool) Stream[T]
 }
 
 // if there are more items to iterate, returns the next item and true.
